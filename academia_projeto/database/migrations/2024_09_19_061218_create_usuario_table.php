@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->string('email')->unique();
+            $table->string('senha');
             $table->enum('tipo',['aluno','dono']);
             $table->timestamps();
         });

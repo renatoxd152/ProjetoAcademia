@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aluno extends Model
 {
-    protected $fillable = ['nome','data_nascimento','cep','telefone','email'];
-    protected $table = 'alunos';
+    protected $fillable = ['user_id','data_nasc','cep','telefone'];
+    protected $table = 'aluno';
+
+    public function aluno()
+    {
+        return $this->belongsTo(Usuario::class,'user_id');
+    }
 }
