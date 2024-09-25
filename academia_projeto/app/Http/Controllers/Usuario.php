@@ -7,7 +7,6 @@ use App\Models\Aluno;
 use App\Models\Dono;
 use App\Models\Usuario as ModelsUsuario;
 use Illuminate\Http\Request;
-use TipoUsuario;
 
 class Usuario extends Controller
 {
