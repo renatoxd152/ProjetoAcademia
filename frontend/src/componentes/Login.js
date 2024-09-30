@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
         
     }
-
+    const handleHome = () =>
+    {
+        navigate('/home');
+    }
     return (
         <div className="bg-primary d-flex justify-content-center align-items-center vh-100">
             <div className="w-50 p-4 bg-light shadow">
@@ -36,7 +41,7 @@ export const Login = () => {
                     </div>
                     <div>
                     <a href='/cadastrar' className="d-block mb-2">Não é cadastrado? Cadastra-se</a>
-                    <button type="submit" className="btn btn-primary mt-3">Login</button>
+                    <button type="submit" onClick={handleHome} className="btn btn-primary mt-3">Login</button>
                     </div>
                     
                 </form>
