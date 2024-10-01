@@ -3,7 +3,10 @@ import { Nav } from "./Nav";
 export const Home = () => {
     return (
         <>
-            <Nav/>
+            <div className="d-flex">
+                <Nav/>
+            </div>
+            
         </>
     );
 }

@@ -8,9 +8,12 @@ export const Nav = () => {
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                     </form>
                 </li>
-                <li className="fs-5"><a href="/aluno" className="text-white">Cadastrar Aluno</a></li>
-                <li className="fs-5"><a href="/" className="text-white">Cadastrar Treino</a></li>
-                <li className="fs-5"><a href="/" className="text-white">Cadastrar treino para o aluno</a></li>
+                <li className="fs-5"><a href="/aluno" className="text-white text-decoration-none">Cadastrar Aluno</a></li>
+                <li className="fs-5"><a href="/treino" className="text-white text-decoration-none">Cadastrar Treino</a></li>
+                <li className="fs-5"><a href="/treino/aluno" className="text-white text-decoration-none">Cadastrar treino para o aluno</a></li>
+                <li className="fs-5"><a href="/contrato" className="text-white text-decoration-none">Criar contrato</a></li>
+                <li className="fs-5"><a href="/visualizar/contratos" className="text-white text-decoration-none">Visualizar contratos</a></li>
+                <li className="fs-5"><a href="/criar/pagamento" className="text-white text-decoration-none">Criar nova forma de pagamento</a></li>
             </ul>
         </div>
     );
