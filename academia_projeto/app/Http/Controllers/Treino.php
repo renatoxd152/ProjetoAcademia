@@ -15,9 +15,8 @@ class Treino extends Controller
 
     public function findAll()
     {
-        $treinos = ModelsTreino::findAll();
-        $data = ['treinos'=>$treinos];
-        return response()->json($data,200);
+        $treinos = ModelsTreino::all();
+        return response()->json($treinos,200);
     }
 
     public function delete($id)

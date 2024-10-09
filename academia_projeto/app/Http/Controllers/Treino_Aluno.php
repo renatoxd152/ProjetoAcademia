@@ -9,14 +9,25 @@ class Treino_Aluno extends Controller
 {
     public function createTraining(Request $request)
     {
-        Treino_Aluno_Model::create(['duracao_treino_inicio'=>$request->inicio,
-        'duracao_treino_fim'=>$request->fim,
-        'series'=>$request->series,
-        'aluno_id'=>$request->aluno,
-        'treino_id'=>$request->treino]);
-
-        return response()->json(['mensagem'=>'O treino do aluno foi criado com sucesso!'],200);
+        
+        if (!is_array($request->treinos)) {
+            return response()->json(['erro' => 'Treinos devem ser um array.'], 400);
+        }
+    
+        foreach ($request->treinos as $treino) {
+            echo $treino->inicio;
+            Treino_Aluno_Model::create([
+                'duracao_treino_inicio' => $treino['inicio'],
+                'duracao_treino_fim' => $treino['fim'],
+                'series' => $treino['series'],
+                'aluno_id' => $request->aluno,
+                'treino_id' => $treino['treino_id']
+            ]);
+        }
+    
+        return response()->json(['mensagem' => 'Os treinos do aluno foram criados com sucesso!'], 200);
     }
+    
 
     public function deleteTraining($id)
     {
