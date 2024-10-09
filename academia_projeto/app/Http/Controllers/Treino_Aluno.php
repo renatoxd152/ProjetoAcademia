@@ -8,25 +8,33 @@ use Illuminate\Http\Request;
 class Treino_Aluno extends Controller
 {
     public function createTraining(Request $request)
-    {
-        
-        if (!is_array($request->treinos)) {
-            return response()->json(['erro' => 'Treinos devem ser um array.'], 400);
-        }
-    
-        foreach ($request->treinos as $treino) {
-            echo $treino->inicio;
-            Treino_Aluno_Model::create([
-                'duracao_treino_inicio' => $treino['inicio'],
-                'duracao_treino_fim' => $treino['fim'],
-                'series' => $treino['series'],
-                'aluno_id' => $request->aluno,
-                'treino_id' => $treino['treino_id']
-            ]);
-        }
-    
-        return response()->json(['mensagem' => 'Os treinos do aluno foram criados com sucesso!'], 200);
+{
+    if (!is_array($request->treinos)) {
+        return response()->json(['erro' => 'Treinos devem ser um array.'], 400);
     }
+
+    foreach ($request->treinos as $treino) {
+        
+        $treinoExistente = Treino_Aluno_Model::where('aluno_id', $request->aluno)
+            ->where('treino_id', $treino['treino_id'])
+            ->first();
+
+        if ($treinoExistente) {
+            return response()->json(['erro' => 'O treino já está salvo para este aluno.'], 400);
+        }
+
+        Treino_Aluno_Model::create([
+            'duracao_treino_inicio' => $treino['inicio'],
+            'duracao_treino_fim' => $treino['fim'],
+            'series' => $treino['series'],
+            'aluno_id' => $request->aluno,
+            'treino_id' => $treino['treino_id']
+        ]);
+    }
+
+    return response()->json(['mensagem' => 'Os treinos do aluno foram criados com sucesso!'], 200);
+}
+
     
 
     public function deleteTraining($id)

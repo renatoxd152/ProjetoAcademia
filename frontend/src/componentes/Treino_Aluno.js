@@ -10,10 +10,9 @@ export const TreinoAluno = () => {
     const [selectedTreinos, setSelectedTreinos] = useState([]);
     const [editMode, setEditMode] = useState(null);
     const [seriesEdit, setSeriesEdit] = useState('');
-    const[mensagem,setMensagem] = useState("");
-    const[erro,setErro] = useState("");
-
-   
+    const [mensagem, setMensagem] = useState("");
+    const [erro, setErro] = useState("");
+    const [datasTreinos, setDatasTreinos] = useState({});
 
     useEffect(() => {
         const fetchAlunos = async () => {
@@ -35,6 +34,11 @@ export const TreinoAluno = () => {
                 const response = await fetch("http://localhost:8000/api/treinos");
                 const data = await response.json();
                 setTreinos(data);
+                const initialDatas = {};
+                data.forEach(treino => {
+                    initialDatas[treino.id] = { inicio: '', fim: '' };
+                });
+                setDatasTreinos(initialDatas);
             } catch (error) {
                 console.error("Error fetching treinos:", error);
             }
@@ -47,7 +51,6 @@ export const TreinoAluno = () => {
         setSelectedAluno(e.target.value);
     };
 
-   
     const handleTreinoChange = (treino) => {
         if (selectedTreinos.includes(treino)) {
             setSelectedTreinos(selectedTreinos.filter((t) => t.id !== treino.id));
@@ -61,12 +64,21 @@ export const TreinoAluno = () => {
         setSeriesEdit(currentSeries);
     };
 
+    const handleDateChange = (treinoId, tipo, value) => {
+        setDatasTreinos((prev) => ({
+            ...prev,
+            [treinoId]: {
+                ...prev[treinoId],
+                [tipo]: value,
+            },
+        }));
+    };
+
     const handleSeriesChange = (e) => {
         setSeriesEdit(e.target.value);
     };
 
     const handleSeriesSave = (treinoId) => {
-
         setTreinos(
             treinos.map(treino =>
                 treino.id === treinoId ? { ...treino, series: seriesEdit } : treino
@@ -81,16 +93,17 @@ export const TreinoAluno = () => {
         setEditMode(null);
     };
 
-        const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-      console.log(selectedTreinos)
+        
         const treinosParaSalvar = selectedTreinos.map(treino => ({
             treino_id: treino.id,
             series: treino.series,
-            inicio: treino.inicio || '',
-            fim: treino.fim || '' 
+            inicio: datasTreinos[treino.id]?.inicio || '',
+            fim: datasTreinos[treino.id]?.fim || ''
         }));
+
+        console.log(treinosParaSalvar)
 
         if (!selectedAluno || treinosParaSalvar.length === 0) {
             setErro("Por favor, selecione um aluno e pelo menos um treino.");
@@ -114,11 +127,11 @@ export const TreinoAluno = () => {
             if (response.ok) {
                 setErro("");
                 setMensagem(data.mensagem);
-
                 setSelectedTreinos([]);
+                setDatasTreinos({});
             } else {
                 setMensagem("");
-                setErro(data.mensagem || "Erro ao cadastrar os treinos");
+                setErro(data.erro || "Erro ao cadastrar os treinos");
             }
         } catch (error) {
             setMensagem("");
@@ -133,10 +146,10 @@ export const TreinoAluno = () => {
                 <div className="flex-grow-1 p-4">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <div className="form-control">
-                                <span>{erro}</span>
-                                <span>{mensagem}</span>
-                            </div>
+                        <div className="form-control">
+                            {erro && <span className="alert alert-danger" role="alert">{erro}</span>}
+                            {mensagem && <span className="alert alert-success" role="alert">{mensagem}</span>}
+                        </div>
                             
                             <label>Selecione um aluno:</label>
                             <select className="form-control" onChange={handleAlunoChange}>
@@ -182,7 +195,7 @@ export const TreinoAluno = () => {
                                                                 type="text"
                                                                 value={seriesEdit}
                                                                 onChange={handleSeriesChange}
-                                                                onClick={(e)=>{e.stopPropagation();}}
+                                                                onClick={(e) => { e.stopPropagation(); }}
                                                             />
                                                             <button
                                                                 className="btn btn-sm btn-success"
@@ -201,8 +214,20 @@ export const TreinoAluno = () => {
                                                         </>
                                                     )}
                                                 </td>
-                                                <td className={selectedTreinos.some(t => t.id === treino.id) ? "selected" : ""} required><input type="date"></input></td>
-                                                <td className={selectedTreinos.some(t => t.id === treino.id) ? "selected" : ""} required><input type="date"></input></td>
+                                                <td className={selectedTreinos.some(t => t.id === treino.id) ? "selected" : ""}>
+                                                    <input 
+                                                        type="date" 
+                                                        onChange={(e) => handleDateChange(treino.id, 'inicio', e.target.value)} 
+                                                        value={datasTreinos[treino.id]?.inicio || ''}
+                                                    />
+                                                </td>
+                                                <td className={selectedTreinos.some(t => t.id === treino.id) ? "selected" : ""}>
+                                                    <input 
+                                                        type="date" 
+                                                        onChange={(e) => handleDateChange(treino.id, 'fim', e.target.value)} 
+                                                        value={datasTreinos[treino.id]?.fim || ''}
+                                                    />
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
