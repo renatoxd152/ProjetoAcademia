@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Aluno;
+use App\Http\Controllers\Contrato;
+use App\Http\Controllers\Tipo_pagamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Treino;
@@ -27,3 +29,6 @@ Route::post('/save/user',[Usuario::class,'criarUsuario']);
 Route::get('/alunos',[Aluno::class,'listStudents']);
 Route::get('/treinos',[Treino::class,'findAll']);
 Route::post('/treino/aluno',[Treino_Aluno::class,'createTraining']);
+Route::post('/criar/pagamento',[Tipo_pagamento::class,'createPayment']);
+Route::get('/pagamentos',[Tipo_pagamento::class,'findAll']);
+Route::post('/contratos',[Contrato::class,'createContract']);

@@ -11,7 +11,7 @@ class Contrato extends Controller
     {
         Contrato_Model::create([
             'data_inicio'=>$request->inicio,
-        'data_fim'=>$request->fim
+        'date_fim'=>$request->fim
         ,'duracao'=>$request->duracao,
         'dono_id'=>$request->dono,
         'aluno_id'=>$request->aluno,

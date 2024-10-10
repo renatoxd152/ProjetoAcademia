@@ -146,10 +146,10 @@ export const TreinoAluno = () => {
                 <div className="flex-grow-1 p-4">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                        <div className="form-control">
-                            {erro && <span className="alert alert-danger" role="alert">{erro}</span>}
-                            {mensagem && <span className="alert alert-success" role="alert">{mensagem}</span>}
-                        </div>
+                      
+                            {erro && <span className="alert alert-danger d-block" role="alert">{erro}</span>}
+                            {mensagem && <span className="alert alert-success d-block" role="alert">{mensagem}</span>}
+                        
                             
                             <label>Selecione um aluno:</label>
                             <select className="form-control" onChange={handleAlunoChange}>

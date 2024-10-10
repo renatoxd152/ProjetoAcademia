@@ -35,8 +35,7 @@ class Tipo_pagamento extends Controller
 
     public function findAll()
     {
-        $tipos = Tipo_Pagamento_Model::findAll();
-        $data = ['tipos_pagamentos'=>$tipos];
-        return response()->json($data,200);
+        $tipos = Tipo_Pagamento_Model::all();
+        return response()->json($tipos,200);
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contrato_Model extends Model
 {
-    protected $fillable = ['data_inicio','data_fim','duracao','dono_id','aluno_id','tipo_pagamento_id'];
+    protected $fillable = ['data_inicio','date_fim','duracao','dono_id','aluno_id','tipo_pagamento_id'];
     protected $table = 'contrato';
 
     public function dono()
