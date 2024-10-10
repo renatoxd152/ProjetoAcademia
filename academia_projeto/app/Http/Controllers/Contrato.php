@@ -9,15 +9,25 @@ class Contrato extends Controller
 {
     public function createContract(Request $request)
     {
-        Contrato_Model::create([
-            'data_inicio'=>$request->inicio,
-        'date_fim'=>$request->fim
-        ,'duracao'=>$request->duracao,
-        'dono_id'=>$request->dono,
-        'aluno_id'=>$request->aluno,
-        'tipo_pagamento_id'=>$request->tipo_pagamento]);
-
-        return response()->json(['mensagem'=>'O contrato foi criado com sucesso!',200]);
+        try {
+            $verifica = Contrato_Model::where('aluno_id',$request->aluno)->first();
+            if($verifica)
+            {
+                return response()->json(['erro'=>'Esse aluno já possui contrato!'],400);
+            }
+            Contrato_Model::create([
+                'data_inicio' => $request->inicio,
+                'date_fim' => $request->fim,
+                'duracao' => $request->duracao,
+                'dono_id' => $request->dono,
+                'aluno_id' => $request->aluno,
+                'tipo_pagamento_id' => $request->tipo_pagamento
+            ]);
+    
+            return response()->json(['mensagem' => 'O contrato foi criado com sucesso!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['erro' => 'Erro ao criar contrato: ' . $e->getMessage()], 500);
+        }
     }
 
     public function listAll()

@@ -4,6 +4,8 @@ import { Nav } from "./Nav";
 export const Contrato = () => {
     const [alunos, setAlunos] = useState([]);
     const[pagamentos,setPagamentos] = useState([]);
+    const[mensagem,setMensagem] = useState("");
+    const[erro,setErro] = useState("");
     const[formData,setFormData] = useState({
         aluno:'',
         data_inicio:'',
@@ -32,6 +34,16 @@ export const Contrato = () => {
         });
     };
 
+    const limparFormulario = () => {
+        setFormData({
+            aluno: '',
+            data_inicio: '',
+            data_fim: '',
+            pagamento: '',
+            valor_contrato: ''
+        });
+    }    
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,7 +51,7 @@ export const Contrato = () => {
         const dataFim = new Date(formData.data_fim);
     
         const duracao = Math.ceil((dataFim - dataInicio) / (1000 * 60 * 60 * 24)); 
-        console.log(duracao)
+        console.log(formData)
 
         const contratoData = {
             aluno: formData.aluno,
@@ -58,14 +70,18 @@ export const Contrato = () => {
                 },
                 body: JSON.stringify(contratoData),
             });
-
+            const data = await response.json();
             if (response.ok) {
-                setFormData({});
+                limparFormulario();
+                setMensagem(data.mensagem);
+                setErro("");
             } else {
+                setErro(data.erro);
+                setMensagem("");
                 console.error("Erro ao criar contrato:", response.statusText);
             }
         } catch (error) {
-            console.error("Erro ao enviar contrato:", error);
+            setErro("Erro ao enviar contrato:", error);
         }
     };
 
@@ -92,6 +108,10 @@ export const Contrato = () => {
                 <div className="flex-grow-1 p-4">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
+                            
+                                {erro && <span className="alert alert-danger d-block">{erro}</span>}
+                                {mensagem && <span className="alert alert-success d-block">{mensagem}</span>}
+                            
                             <label>Selecione um aluno:</label>
                             <select
                                 className="form-control"
