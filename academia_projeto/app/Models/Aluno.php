@@ -10,7 +10,7 @@ class Aluno extends Model
     protected $fillable = ['user_id','data_nasc','cep','telefone'];
     protected $table = 'aluno';
 
-    public function aluno()
+    public function usuario()
     {
         return $this->belongsTo(Usuario::class,'user_id');
     }

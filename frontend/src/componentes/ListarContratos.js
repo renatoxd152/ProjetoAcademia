@@ -42,11 +42,11 @@ export const ListarContratos = () =>
                                 contratos.map((contrato)=>
                                 (
                                     <tr key={contrato.id}>
-                                        <td>{contrato.aluno_id}</td>
+                                        <td>{contrato.aluno.usuario.nome}</td>
                                         <td>{formatarData(contrato.data_inicio)}</td>
                                         <td>{formatarData(contrato.date_fim)}</td>
                                         <td>{contrato.duracao}</td>
-                                        <td>{contrato.tipo_pagamento_id}</td>
+                                        <td>{contrato.tipo_pagamento.nome}</td>
                                     </tr>
                                 ))
                             }

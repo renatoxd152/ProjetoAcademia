@@ -32,7 +32,8 @@ class Contrato extends Controller
 
     public function listAll()
     {
-        $contratos = Contrato_Model::all();
+        $contratos = Contrato_Model::with(['aluno.usuario','tipo_pagamento'])->get();
+
         return response()->json($contratos,200);
     }
 
