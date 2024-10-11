@@ -32,9 +32,8 @@ class Contrato extends Controller
 
     public function listAll()
     {
-        $contratos = Contrato_Model::findAll();
-        $data = ["contratos"=>$contratos];
-        return response()->json($data,200);
+        $contratos = Contrato_Model::all();
+        return response()->json($contratos,200);
     }
 
     public function deleteTraining($id)

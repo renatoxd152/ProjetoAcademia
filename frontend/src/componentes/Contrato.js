@@ -50,8 +50,8 @@ export const Contrato = () => {
         const dataInicio = new Date(formData.data_inicio);
         const dataFim = new Date(formData.data_fim);
     
-        const duracao = Math.ceil((dataFim - dataInicio) / (1000 * 60 * 60 * 24)); 
-        console.log(formData)
+        const duracao = dataFim.getFullYear() - dataInicio.getFullYear();
+       
 
         const contratoData = {
             aluno: formData.aluno,

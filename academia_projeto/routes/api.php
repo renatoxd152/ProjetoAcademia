@@ -32,3 +32,4 @@ Route::post('/treino/aluno',[Treino_Aluno::class,'createTraining']);
 Route::post('/criar/pagamento',[Tipo_pagamento::class,'createPayment']);
 Route::get('/pagamentos',[Tipo_pagamento::class,'findAll']);
 Route::post('/contratos',[Contrato::class,'createContract']);
+Route::get('/contratos',[Contrato::class,'listAll']);
