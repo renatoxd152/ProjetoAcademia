@@ -4,6 +4,7 @@ import { Aluno } from "./componentes/Aluno";
 import { Cadastro } from "./componentes/Cadastro";
 import { Contrato } from "./componentes/Contrato";
 import { Home } from "./componentes/Home";
+import { ListarAlunos } from "./componentes/ListarAlunos";
 import { ListarContratos } from "./componentes/ListarContratos";
 import { Login } from "./componentes/Login";
 import { TipoPagamento } from "./componentes/TipoPagamento";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/contrato" element={<Contrato/>}/>
         <Route path="/visualizar/contratos" element={<ListarContratos/>}/>
         <Route path="/criar/pagamento" element={<TipoPagamento/>}/>
+        <Route path="/listar/alunos" element={<ListarAlunos/>}/>
       </Routes>
     </BrowserRouter>
   );
