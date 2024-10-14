@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Enums\TipoUsuario as EnumsTipoUsuario;
 use App\Models\Aluno;
 use App\Models\Dono;
 use App\Models\Usuario as ModelsUsuario;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 class Usuario extends Controller
 {
     public static function criarUsuario(Request $request)
@@ -45,5 +45,29 @@ class Usuario extends Controller
         }
 
         return response()->json(['mensagem'=>'O usuário foi criado com sucesso!'],200);
+    }
+
+    public function login(Request $request)
+    {
+        try {
+
+        $usuario = ModelsUsuario::where('email', $request->email)->first();
+
+        if (!$usuario) {
+            return response()->json(['erro' => 'Email não encontrado'.$request->email], 404);
+        }
+
+        if (!Hash::check($request->senha, $usuario->senha)) {
+            return response()->json(['erro' => 'Email ou senha incorretos'], 401);
+        }
+        $token = JWTAuth::fromUser($usuario);
+
+        return response()->json([
+            'mensagem' => 'Login bem-sucedido!',
+            'token' => $token,
+        ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['erro' => 'Ocorreu um erro durante o login'], 500);
+        }
     }
 }

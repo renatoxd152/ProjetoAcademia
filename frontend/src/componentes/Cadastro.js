@@ -1,27 +1,72 @@
 import React, { useState } from "react";
 export const Cadastro = () =>
 {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [cpf, setCPF] = useState('');
+    const[erro,setErro] = useState("");
+    const[mensagem,setMensagem] = useState("");
+    const [formData, setFormData] = useState({
+        nome: '',
+        cpf: '',
+        email: '',
+        tipo:'',
+        senha:''
+    });
 
-    const handleCadastro = (e) => {
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleCadastro = async (e) => {
         e.preventDefault();
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/save/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nome: formData.nome,
+                    cpf: formData.cpf,
+                    email: formData.email,
+                    senha:formData.senha,
+                    tipo:'dono'
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setErro("");
+                setMensagem(data.mensagem)
+            } else {
+                setMensagem("");
+                setErro(data.mensagem || "Erro ao cadastrar o usuário" )
+            }
+        } catch (error) {
+            setMensagem("");
+            setErro("Ocorreu um erro ao cadastrar o usuário.");
+        }
         
     }
     return (
         <div className="bg-primary d-flex justify-content-center align-items-center vh-100">
             <div className="w-50 p-4 bg-light shadow">
                 <h2>Cadastro</h2>
+                {erro &&  <span className="alert alert-danger d-block">{erro}</span>}
+                {mensagem && <span className="alert alert-success d-block">{mensagem}</span>}
+               
                 <form onSubmit={handleCadastro}>
                     <div className="form-group">
                         <label>Email:</label>
                         <input 
                             type="email" 
                             className="form-control" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                            name="email"
+                            value={formData.email} 
+                            onChange={handleChange} 
                             required 
                         />
                     </div>
@@ -30,8 +75,9 @@ export const Cadastro = () =>
                         <input 
                             type="password" 
                             className="form-control" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                            name="senha"
+                            value={formData.senha} 
+                            onChange={handleChange}
                             required 
                         />
                     </div>
@@ -40,8 +86,9 @@ export const Cadastro = () =>
                         <input 
                             type="text" 
                             className="form-control" 
-                            value={name} 
-                            onChange={(e) => setName(e.target.value)} 
+                            name="nome"
+                            value={formData.nome} 
+                            onChange={handleChange}
                             required 
                         />
                     </div>
@@ -50,8 +97,9 @@ export const Cadastro = () =>
                         <input 
                             type="text" 
                             className="form-control" 
-                            value={cpf} 
-                            onChange={(e) => setCPF(e.target.value)} 
+                            name="cpf"
+                            value={formData.cpf} 
+                            onChange={handleChange}
                             required 
                         />
                     </div>

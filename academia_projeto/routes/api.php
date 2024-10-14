@@ -34,3 +34,4 @@ Route::get('/pagamentos',[Tipo_pagamento::class,'findAll']);
 Route::post('/contratos',[Contrato::class,'createContract']);
 Route::get('/contratos',[Contrato::class,'listAll']);
 Route::get('/users/students',[Aluno::class,'listAllUsers']);
+Route::get('/login',[Usuario::class,'login']);
