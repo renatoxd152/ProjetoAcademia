@@ -28,7 +28,7 @@ class Usuario extends Controller
             'tipo' => $request->tipo,
             'senha' => bcrypt($request->senha)
         ]);
-    
+        
         if ($request->tipo === EnumsTipoUsuario::Aluno->value) {
             Aluno::create([
                 'user_id' => $usuario->id,

@@ -6,6 +6,7 @@ export const Contrato = () => {
     const[pagamentos,setPagamentos] = useState([]);
     const[mensagem,setMensagem] = useState("");
     const[erro,setErro] = useState("");
+
     const[formData,setFormData] = useState({
         aluno:'',
         data_inicio:'',
@@ -16,7 +17,7 @@ export const Contrato = () => {
     useEffect(() => {
         const fetchAlunos = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/alunos");
+                const response = await fetch("http://localhost:8000/api/users/students");
                 const data = await response.json();
                 setAlunos(data);
             } catch (error) {
@@ -51,11 +52,11 @@ export const Contrato = () => {
         const dataFim = new Date(formData.data_fim);
     
         const duracao = dataFim.getFullYear() - dataInicio.getFullYear();
-       
-
+        let token = localStorage.getItem('token');
+        let userId = localStorage.getItem('id');
         const contratoData = {
             aluno: formData.aluno,
-            dono:1,
+            dono:userId,
             inicio: formData.data_inicio,
             fim: formData.data_fim,
             tipo_pagamento: formData.pagamento,
@@ -67,6 +68,7 @@ export const Contrato = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(contratoData),
             });
@@ -122,7 +124,7 @@ export const Contrato = () => {
                                 <option value="">Selecione um aluno</option>
                                 {alunos.map((aluno) => (
                                     <option key={aluno.id} value={aluno.id}>
-                                        {aluno.nome}
+                                        {aluno.usuario.nome}
                                     </option>
                                 ))}
                             </select>
