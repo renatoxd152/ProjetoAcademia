@@ -51,16 +51,17 @@ class Usuario extends Controller
     {
         try {
 
-        $usuario = ModelsUsuario::where('email', $request->email)->first();
+        $usuario = ModelsUsuario::where('email', $request->email)->where('tipo','dono')->first();
 
         if (!$usuario) {
-            return response()->json(['erro' => 'Email não encontrado'.$request->email], 404);
+            return response()->json(['erro' => 'Email ou senha incorretos!'], 404);
         }
 
         if (!Hash::check($request->senha, $usuario->senha)) {
-            return response()->json(['erro' => 'Email ou senha incorretos'], 401);
+            return response()->json(['erro' => 'Email ou senha incorretos!'], 401);
         }
-        $token = JWTAuth::fromUser($usuario);
+        $token = JWTAuth::claims(['sub' => $usuario->id])->fromUser($usuario);
+
 
         return response()->json([
             'mensagem' => 'Login bem-sucedido!',
