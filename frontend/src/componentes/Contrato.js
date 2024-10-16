@@ -12,7 +12,8 @@ export const Contrato = () => {
         data_inicio:'',
         data_fim:'',
         pagamento:'',
-        valor_contrato:''
+        valor_contrato:'',
+        parcelas:''
     })
     useEffect(() => {
         const fetchAlunos = async () => {
@@ -45,9 +46,20 @@ export const Contrato = () => {
         });
     }    
     
+    const gerarParcelas = (valor) =>
+    {
+        let parcela;
+        let parcelas = [];
+        for(let i = 1; i<=12;i++)
+        {
+            parcela = (valor/i).toFixed(2);
+            parcelas.push(<option key={i} value={i}>{`${i}x de R$ ${parcela}`}</option>);
+        }
+        return parcelas;
+    } 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         const dataInicio = new Date(formData.data_inicio);
         const dataFim = new Date(formData.data_fim);
     
@@ -61,6 +73,8 @@ export const Contrato = () => {
             fim: formData.data_fim,
             tipo_pagamento: formData.pagamento,
             duracao:duracao,
+            valor_contrato:formData.valor_contrato,
+            parcelas:formData.parcelas
         };
 
         try {
@@ -152,6 +166,18 @@ export const Contrato = () => {
                             />
                         </div>
 
+                       
+                        <div className="form-group">
+                            <label>Valor total do contrato:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="valor_contrato"
+                                value={formData.valor_contrato}
+                                onChange={handleChange}
+                            />
+                        </div>
+
                         <div className="form-group">
                             <label>Selecione o tipo de pagamento:</label>
                             <select
@@ -169,16 +195,18 @@ export const Contrato = () => {
                             </select>
                         </div>
 
-                        <div className="form-group">
-                            <label>Valor total do contrato:</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="valor_contrato"
-                                value={formData.valor_contrato}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        {
+                            formData.pagamento === '2' &&
+                            (
+                                <div className="form-group">
+                                    <label>Selecione as parcelas:</label>
+                                    <select className="form-control" name="parcelas" value={formData.parcelas} onChange={handleChange}>
+                                        {formData.valor_contrato && gerarParcelas(formData.valor_contrato)}
+                                    </select>
+                                </div>
+                            )
+                        }
+                        
 
                         <div className="form-group">
                             <button type="submit" className="btn btn-primary">

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parcelas_pagas', function (Blueprint $table) {
             $table->id();
             $table->date('data_vencimento');
-            $table->date('data_pago');
+            $table->date('data_pago')->nullable();
             $table->float('valor');
             $table->unsignedBigInteger('contrato_id');
             $table->foreign('contrato_id')->references('id')->on('contrato');

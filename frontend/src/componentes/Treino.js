@@ -60,8 +60,9 @@ export const Treino = () =>
                         <form onSubmit={handleSubmit}> 
 
                             <div className="form-group">
-                                <span>{mensagem}</span>
-                                <span>{erro}</span>
+                                {mensagem && <span className="alert alert-success d-block">{mensagem}</span>}
+                                {erro && <span className="alert alert-danger d-block">{erro}</span>}
+                                
                             </div>
                             <div className="form-group">
                                 <label>Nome</label>
@@ -81,7 +82,7 @@ export const Treino = () =>
                             </div>
                         
                             <div className="form-group">
-                                <button>Cadastrar Treino</button>
+                                <button className="btn btn-primary">Cadastrar Treino</button>
                             </div>
                         </form>
                 </div>

@@ -21,7 +21,22 @@ export const Aluno = () => {
             [e.target.name]: e.target.value
         });
     };
-
+    const resetarFormulario = () =>
+    {
+        setFormData(
+            {
+                nome: '',
+                cpf: '',
+                email: '',
+                senha: '',
+                cep: '',
+                telefone: '',
+                dataNascimento: '',
+                tipo: 'aluno'
+            }
+        );
+      
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -48,6 +63,7 @@ export const Aluno = () => {
             if (response.ok) {
                 setErro("");
                 setMensagem(data.mensagem)
+                resetarFormulario();
             } else {
                 setMensagem("");
                 setErro(data.mensagem || "Erro ao cadastrar o usuário" )
@@ -65,8 +81,12 @@ export const Aluno = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <div className="form-group">
-                            <span>{mensagem}</span>
-                            <span>{erro}</span>
+                            {
+                                mensagem &&<span className="alert alert-success d-block">{mensagem}</span>
+                            }
+                            {
+                                erro &&  <span className="alert alert-danger d-block">{erro}</span>
+                            }
                         </div>
                         
                         <label>Nome</label>
