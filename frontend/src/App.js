@@ -10,6 +10,7 @@ import { Login } from "./componentes/Login";
 import { TipoPagamento } from "./componentes/TipoPagamento";
 import { Treino } from "./componentes/Treino";
 import { TreinoAluno } from "./componentes/Treino_Aluno";
+import { TreinosAlunos } from "./componentes/Treinos_Aluno";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/visualizar/contratos" element={<ListarContratos/>}/>
         <Route path="/criar/pagamento" element={<TipoPagamento/>}/>
         <Route path="/listar/alunos" element={<ListarAlunos/>}/>
+        <Route path="/treinos/aluno/:id" element={<TreinosAlunos/>}/>
       </Routes>
     </BrowserRouter>
   );

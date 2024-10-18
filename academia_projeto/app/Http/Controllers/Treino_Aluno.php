@@ -64,4 +64,10 @@ class Treino_Aluno extends Controller
         $data = ['treinos'=>$treinos];
         return response()->json($data,200);
     }
+
+    public function getTrainingStudent($id)
+    {
+        $treinos = Treino_Aluno_Model::where('aluno_id',$id)->with('treino')->get();
+        return response()->json($treinos,200);
+    }
 }

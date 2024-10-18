@@ -18,6 +18,6 @@ class Treino_Aluno_Model extends Model
 
     public function treino():BelongsTo
     {
-        return $this->belongsTo(Treino_Aluno_Model::class,'treino_id');
+        return $this->belongsTo(Treino::class,'treino_id');
     }
 }

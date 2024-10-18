@@ -50,3 +50,20 @@ th, td {
 td.selected {
   background-color: #19b7df !important;
 }
+.hover-row:hover td {
+  background-color: #1988bb;
+}
+.table-caption
+{
+  caption-side: top;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
