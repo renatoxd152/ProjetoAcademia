@@ -36,3 +36,5 @@ Route::get('/contratos',[Contrato::class,'listAll']);
 Route::get('/users/students',[Aluno::class,'listAllUsers']);
 Route::post('/login',[Usuario::class,'login']);
 Route::get('/students/{id}/trainings', [Treino_Aluno::class, 'getTrainingStudent']);
+Route::put('/editar/{id}/treino/aluno',[Treino_Aluno::class,'updateTraining']);
+Route::delete('/deletar/{id}/treino/aluno',[Treino_Aluno::class,'deleteTraining']);
