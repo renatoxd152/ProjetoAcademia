@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Nav } from "./Nav";
 
 export const Aluno = () => {
+    const[mensagem,setMensagem] = useState("");
+    const[erro,setErro] = useState("");
+
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
@@ -12,9 +15,7 @@ export const Aluno = () => {
         dataNascimento: '',
         tipo: 'aluno'
     });
-
-    const[mensagem,setMensagem] = useState("");
-    const[erro,setErro] = useState("");
+    
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -39,12 +40,14 @@ export const Aluno = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        let token = localStorage.getItem('token');
+        console.log(token)
         try {
             const response = await fetch("http://127.0.0.1:8000/api/save/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     nome: formData.nome,

@@ -7,6 +7,7 @@ import { Home } from "./componentes/Home";
 import { ListarAlunos } from "./componentes/ListarAlunos";
 import { ListarContratos } from "./componentes/ListarContratos";
 import { Login } from "./componentes/Login";
+import { ProtectedRoute } from "./componentes/ProtectedRoute/ProtectedRoute";
 import { TipoPagamento } from "./componentes/TipoPagamento";
 import { Treino } from "./componentes/Treino";
 import { TreinoAluno } from "./componentes/Treino_Aluno";
@@ -16,16 +17,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/cadastrar" element={<Cadastro/>}/>
-        <Route path="/aluno" element={<Aluno/>}/>
-        <Route path="/treino" element={<Treino/>}/>
-        <Route path="/treino/aluno" element={<TreinoAluno/>}/>
-        <Route path="/contrato" element={<Contrato/>}/>
-        <Route path="/visualizar/contratos" element={<ListarContratos/>}/>
-        <Route path="/criar/pagamento" element={<TipoPagamento/>}/>
-        <Route path="/listar/alunos" element={<ListarAlunos/>}/>
-        <Route path="/treinos/aluno/:id" element={<TreinosAlunos/>}/>
+        <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+        <Route path="/cadastrar" element={<ProtectedRoute><Cadastro/></ProtectedRoute>}/>
+        <Route path="/aluno" element={<ProtectedRoute><Aluno/></ProtectedRoute>}/>
+        <Route path="/treino" element={<ProtectedRoute><Treino/></ProtectedRoute>}/>
+        <Route path="/treino/aluno" element={<ProtectedRoute><TreinoAluno/></ProtectedRoute>}/>
+        <Route path="/contrato" element={<ProtectedRoute><Contrato/></ProtectedRoute>}/>
+        <Route path="/visualizar/contratos" element={<ProtectedRoute><ListarContratos/></ProtectedRoute>}/>
+        <Route path="/criar/pagamento" element={<ProtectedRoute><TipoPagamento/></ProtectedRoute>}/>
+        <Route path="/listar/alunos" element={<ProtectedRoute><ListarAlunos/></ProtectedRoute>}/>
+        <Route path="/treinos/aluno/:id" element={<ProtectedRoute><TreinosAlunos/></ProtectedRoute>}/>
       </Routes>
     </BrowserRouter>
   );
