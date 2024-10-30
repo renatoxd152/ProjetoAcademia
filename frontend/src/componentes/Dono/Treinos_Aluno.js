@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { useEffect, useState } from "react";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { useParams } from "react-router-dom";
-import { Nav } from "./Nav";
+import { Nav } from './Nav';
 export const TreinosAlunos = () =>
 {
     const[treinos,setTreinos] = useState([]);
@@ -89,7 +89,7 @@ export const TreinosAlunos = () =>
     return (
         <>
           <div className="d-flex">
-            <Nav />
+            <Nav tipoUsuario="dono"/>
             <div className="flex-grow-1 p-4">
               <table className="table">
                 <caption className="table-caption">Treinos cadastrados para o aluno</caption>

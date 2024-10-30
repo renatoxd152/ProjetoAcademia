@@ -4,7 +4,7 @@ export const Home = () => {
     return (
         <>
             <div className="d-flex">
-                <Nav/>
+                <Nav tipoUsuario="dono"/>
             </div>
             
         </>

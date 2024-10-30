@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import '../App.css';
+import '../../App.css';
 import { Nav } from "./Nav";
 
 export const TreinoAluno = () => {
@@ -142,7 +142,7 @@ export const TreinoAluno = () => {
     return (
         <>
             <div className="d-flex">
-                <Nav />
+                <Nav tipoUsuario="dono"/>
                 <div className="flex-grow-1 p-4">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">

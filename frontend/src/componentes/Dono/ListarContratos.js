@@ -25,7 +25,7 @@ export const ListarContratos = () =>
     return(
         <>
             <div className="d-flex">
-                <Nav/>
+                <Nav tipoUsuario="dono"/>
                 <div className="flex-grow-1 p-4">
                     <table>
                         <thead>

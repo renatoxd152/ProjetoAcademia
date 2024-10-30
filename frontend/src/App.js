@@ -1,17 +1,18 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Aluno } from "./componentes/Aluno";
-import { Cadastro } from "./componentes/Cadastro";
-import { Contrato } from "./componentes/Contrato";
-import { Home } from "./componentes/Home";
-import { ListarAlunos } from "./componentes/ListarAlunos";
-import { ListarContratos } from "./componentes/ListarContratos";
-import { Login } from "./componentes/Login";
+import { HomeCliente } from "./componentes/Cliente/HomeCliente";
+import { Aluno } from "./componentes/Dono/Aluno";
+import { Cadastro } from "./componentes/Dono/Cadastro";
+import { Contrato } from "./componentes/Dono/Contrato";
+import { Home } from "./componentes/Dono/Home";
+import { ListarAlunos } from "./componentes/Dono/ListarAlunos";
+import { ListarContratos } from "./componentes/Dono/ListarContratos";
+import { Login } from "./componentes/Dono/Login";
+import { TipoPagamento } from "./componentes/Dono/TipoPagamento";
+import { Treino } from "./componentes/Dono/Treino";
+import { TreinoAluno } from "./componentes/Dono/Treino_Aluno";
+import { TreinosAlunos } from "./componentes/Dono/Treinos_Aluno";
 import { ProtectedRoute } from "./componentes/ProtectedRoute/ProtectedRoute";
-import { TipoPagamento } from "./componentes/TipoPagamento";
-import { Treino } from "./componentes/Treino";
-import { TreinoAluno } from "./componentes/Treino_Aluno";
-import { TreinosAlunos } from "./componentes/Treinos_Aluno";
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/criar/pagamento" element={<ProtectedRoute><TipoPagamento/></ProtectedRoute>}/>
         <Route path="/listar/alunos" element={<ProtectedRoute><ListarAlunos/></ProtectedRoute>}/>
         <Route path="/treinos/aluno/:id" element={<ProtectedRoute><TreinosAlunos/></ProtectedRoute>}/>
+        <Route path="/aluno/home" element={<ProtectedRoute><HomeCliente/></ProtectedRoute>}/>
       </Routes>
     </BrowserRouter>
   );

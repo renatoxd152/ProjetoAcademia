@@ -24,14 +24,21 @@ export const Login = () => {
             });
 
             const data = await response.json();
-
+            console.log(data);
             if (response.ok) {
                 if(data.token)
                 {
                     localStorage.setItem('token', data.token);
                     let decodedToken = jwtDecode(data.token);
                     localStorage.setItem('id',decodedToken.sub);
-                    navigate('/home');
+                    if(data.tipo === 'dono')
+                    {
+                        navigate('/home');
+                    }
+                    if(data.tipo === 'aluno')
+                    {
+                        navigate("/aluno/home");
+                    }
                 }
             } else {
                 setErro(data.erro);

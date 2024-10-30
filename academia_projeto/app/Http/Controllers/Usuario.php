@@ -51,7 +51,7 @@ class Usuario extends Controller
     {
         try {
 
-        $usuario = ModelsUsuario::where('email', $request->email)->where('tipo','dono')->first();
+        $usuario = ModelsUsuario::where('email', $request->email)->first();
 
         if (!$usuario) {
             return response()->json(['erro' => 'Email ou senha incorretos!'], 404);
@@ -66,6 +66,7 @@ class Usuario extends Controller
         return response()->json([
             'mensagem' => 'Login bem-sucedido!',
             'token' => $token,
+            "tipo"=>$usuario->tipo
         ], 200);
         } catch (\Exception $e) {
             return response()->json(['erro' => 'Ocorreu um erro durante o login'], 500);

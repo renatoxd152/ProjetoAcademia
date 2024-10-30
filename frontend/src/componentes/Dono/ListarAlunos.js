@@ -22,7 +22,7 @@ export const ListarAlunos = () =>
     return(
         <>
             <div className="d-flex">
-                <Nav/>
+                <Nav tipoUsuario="dono"/>
 
                 <div className="flex-grow-1 p-4">
                     <table className="table">
