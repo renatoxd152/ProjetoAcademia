@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ContratoAluno } from "./componentes/Cliente/ContratoAluno";
 import { HomeCliente } from "./componentes/Cliente/HomeCliente";
 import { Aluno } from "./componentes/Dono/Aluno";
 import { Cadastro } from "./componentes/Dono/Cadastro";
@@ -29,6 +30,8 @@ function App() {
         <Route path="/listar/alunos" element={<ProtectedRoute><ListarAlunos/></ProtectedRoute>}/>
         <Route path="/treinos/aluno/:id" element={<ProtectedRoute><TreinosAlunos/></ProtectedRoute>}/>
         <Route path="/aluno/home" element={<ProtectedRoute><HomeCliente/></ProtectedRoute>}/>
+        <Route path="/contrato/:id/aluno/" element={<ProtectedRoute><ContratoAluno/></ProtectedRoute>}/>
+        <Route path="/treino/:id/aluno" element={<ProtectedRoute><TreinoAluno/></ProtectedRoute>}/>
       </Routes>
     </BrowserRouter>
   );

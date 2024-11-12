@@ -1,10 +1,8 @@
 import { useState } from "react";
 
 const rotasAluno = [
-    { id: 1, url: "/aluno", nome: "Cadastrar Aluno" },
-    { id: 2, url: "/listar/alunos", nome: "Visualizar alunos cadastrados" },
-    { id: 3, url: "/treino", nome: "Cadastrar Treino" },
-    { id: 4, url: "/treino/aluno", nome: "Cadastrar treino para o aluno" },
+    { id: 1, url: "/listar/treinos", nome: "Treinos" },
+    { id: 2, url: "/contrato", nome: "Contrato" },,
 ];
 
 const rotasDono =  [

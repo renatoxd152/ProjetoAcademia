@@ -31,6 +31,7 @@ export const Login = () => {
                     localStorage.setItem('token', data.token);
                     let decodedToken = jwtDecode(data.token);
                     localStorage.setItem('id',decodedToken.sub);
+                    localStorage.setItem('tipo',data.tipo);
                     if(data.tipo === 'dono')
                     {
                         navigate('/home');
